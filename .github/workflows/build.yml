@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 env:
   JAVA_VERSION: '17'
-  FLUTTER_VERSION: '3.19.6'
+  FLUTTER_VERSION: '3.22.0'
   FLUTTER_CHANNEL: 'stable'
 jobs:
   build:
@@ -47,4 +47,4 @@ jobs:
       - name: Decoded keystore
         run: echo ${{ secrets.KEYSTORE_DEV }} | base64 -di > "./android/app/key.jks"
       - name: Build apk file
-        run: flutter build apk --release --flavor=prod -t lib/main.dart
+        run: flutter build apk --release -t lib/main.dart
