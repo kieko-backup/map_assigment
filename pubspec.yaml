@@ -1,0 +1,68 @@
+name: map_assignment
+description: "This  is the assignment project from next_innovations."
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.4.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.19.0
+  cupertino_icons: ^1.0.6
+  google_fonts: ^6.2.1
+  logger: ^2.4.0
+
+
+  # State management
+  bloc: ^8.1.0
+  flutter_bloc: ^8.1.1
+
+  # Depedency Injection
+  get_it: ^7.2.0
+  injectable: ^2.4.2
+
+  # Storage
+  flutter_secure_storage: ^9.2.1
+
+  # Network
+  dio: ^5.4.3+1
+  pretty_dio_logger: ^1.1.1
+  retrofit: ^4.1.0
+  dartz: ^0.10.1
+
+  # Data
+  freezed_annotation: ^2.2.0
+  json_annotation: ^4.7.0
+
+  # Navigation 2.0
+  go_router: ^14.1.2
+  go_router_flow: ^6.2.0
+
+  # UIs
+  flutter_easyloading: ^3.0.5
+  path_provider: ^2.0.11
+  flutter_map: ^7.0.2
+  latlong2: ^0.9.1
+
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  build_runner: ^2.3.2
+  freezed: ^2.1.0+1
+  json_serializable: ^6.5.4
+  retrofit_generator: ^8.1.0
+  injectable_generator: ^2.6.1
+
+
+flutter:
+  uses-material-design: true
+  generate: true # Enable generation of localized Strings from arb files.

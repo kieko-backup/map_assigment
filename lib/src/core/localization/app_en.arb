@@ -1,0 +1,23 @@
+{
+  "@@locale": "en",
+  "appTitle": "Assigment App",
+  "errorDefault": "Oops! Something when wrong",
+  "errorDefaultServer": "Oops! Something when wrong with server",
+  "errorConnectTimeout": "Connect timeout",
+  "errorNoInternet": "No Internet",
+  "actionProceed": "Proceed",
+  "actionCopy": "Copy",
+  "titleMapDownload": "Downloading Map",
+  "titleMapDisplay": "Displaying Custom Map",
+  "titlePinLocation": "Pin Location",
+  "selectedPinLocation": "Your Selected Pin Location /n[{location}]",
+  "@selectedPinLocation": {
+    "description": "The selected pin location message with latitude and longitude.",
+    "placeholders": {
+      "location": {
+        "type": "String"
+      }     
+    }
+  },
+  "messageCopyToClipboard": "Copy to Clipboard"
+}
