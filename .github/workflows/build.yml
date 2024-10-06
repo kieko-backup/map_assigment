@@ -1,0 +1,50 @@
+name: build-prod-app
+on:
+  push:
+    tags:
+      - v*
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+env:
+  JAVA_VERSION: '17'
+  FLUTTER_VERSION: '3.19.6'
+  FLUTTER_CHANNEL: 'stable'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Exit if not on main branch
+        if: github.ref == 'refs/head/main'
+        run: exit 0
+      - name: Checkout branch
+        uses: actions/checkout@v3
+      - name: Setup Java JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: ${{env.JAVA_VERSION}}
+      - name: Get latest flutter SDK
+        uses: subosito/flutter-action@v2
+        with:
+          channel: ${{env.FLUTTER_CHANNEL}}
+          flutter-version: ${{env.FLUTTER_VERSION}}
+          cache: true
+          cache-key: flutter
+      - name: Get Dependencies
+        run: flutter pub get
+      - name: Generate files with build_runner
+        run: flutter pub run build_runner build --delete-conflicting-outputs
+      - name: Add key.properties
+        env:
+          PROPERTIES_PATH: './android/key.properties'
+          SIGNING_KEY_ALIAS: ${{ secrets.DEV_SIGNING_KEY_ALIAS }}
+          SIGNING_KEY_PASSWORD: ${{ secrets.DEV_SIGNING_KEY_PASSWORD }}
+          SIGNING_STORE_PASSWORD: ${{ secrets.DEV_SIGNING_STORE_PASSWORD }}
+        run: |
+          echo keyPassword=${{ env.SIGNING_KEY_PASSWORD }} > ${{ env.PROPERTIES_PATH }}
+          echo storePassword=${{ env.SIGNING_STORE_PASSWORD }} >> ${{ env.PROPERTIES_PATH }}
+          echo keyAlias=${{ env.SIGNING_KEY_ALIAS }} >> ${{ env.PROPERTIES_PATH }}
+      - name: Decoded keystore
+        run: echo ${{ secrets.KEYSTORE_DEV }} | base64 -di > "./android/app/key.jks"
+      - name: Build apk file
+        run: flutter build apk --release --flavor=prod -t lib/main.dart
